@@ -7,14 +7,15 @@ import socket
 import json
 
 # 1. 서버 접속 정보
-HOST = "192.168.0.127" # 서버 IP 주소
-PORT = 1223 # 포트 번호
-# HOST = "192.168.0.19" # 서버 IP 주소
-# PORT = 9723 # 포트 번호
+# 나
+# HOST = "192.168.0.127" # 서버 IP 주소
+# PORT = 1223 # 포트 번호
+# 예진님
+HOST = "192.168.0.19" # 서버 IP 주소
+PORT = 9723 # 포트 번호
+# 교수님
 # HOST = "192.168.224.1" # 서버 IP 주소
 # PORT = 9222 # 포트 번호
-HOST = "192.168.0.127" # 서버 IP 주소
-PORT = 1223 # 포트 번호
 
 # 2. 서버 연결
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
