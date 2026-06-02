@@ -58,7 +58,7 @@ def recv_all(sock, size):
     return data
 
 # ====================================================
-# [인퍼런스 추론 모듈]
+# [중요 - 인퍼런스 추론 모듈]
 # 이미지 데이터에 대해 추론을 하는 함수 구현
 # - 서버는 이미지를 바이트로 받아서 이미지로 변환하고
 # 변환된 이미지를 기반으로 추론을 진행한다.
@@ -83,7 +83,7 @@ def predict_image(image_bytes):
     # 학습 했었던 전처리와 피쳐 뽑는 것을 동일하게 진행 후 해야한다.
 
     # 모델 추론 결과를 pred 변수에 저장
-    pred = model.predict(image, verbose=0)
+    pred = model.predict(image, verbose=0)[0]
 
     # 예측 결과 출력
     print(f"예측 확률")
