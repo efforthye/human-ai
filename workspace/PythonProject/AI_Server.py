@@ -110,5 +110,77 @@ def predict_image(image_bytes):
 
 
 # ====================================================
-# [서버 설정]
+# 서버 설정
 # ====================================================
+# 서버 ip/port 설정
+HOST = "192.168.0.127" # 서버 IP 주소
+PORT = 1222 # 사용할 포트 번호 (0~65545 중 하나, 다른 서비스와 중복 금지(고유포트지정))
+
+# ====================================================
+# socket() TCP 소켓 설정
+# ====================================================
+server_socket = socket.socket(
+    socket.AF_INET,
+    socket.SOCK_STREAM
+)
+print("소켓 생성 완료")
+
+# ====================================================
+# bind() 포트 바인딩
+# ====================================================
+server_socket.bind((HOST, PORT))
+print("포트 바인딩 완료")
+
+# ====================================================
+# listen() 클라이언트 접속 대기
+# ====================================================
+server_socket.listen(5)
+print(f"AI 서버 시작: {HOST}:{PORT}")
+
+# ====================================================
+# 데이터 송수신 무한 루프
+# ====================================================
+while True:
+    print("\n클라이언트 접속 대기 중\n")
+
+    # 클라이언트 접속
+    client_socket, addr = server_socket.accept()
+    print(f"클라이언트 접속: {addr}")
+
+    try:
+        # 이미지 크기 수신 (<-- 클라이언트가 먼저 이미지를 보냄. ex) 125000 byte)
+        header = recv_all(client_socket, size=4)
+
+        if header is None:
+            continue
+
+        # 4byte --> 정수 변환
+        image_size = struct.unpack(">I", header)[0]
+        print(f"이미지 크기: {image_size}")
+
+        # 이미지 수신
+        image_bytes = recv_all(client_socket, image_size)
+        print(f"이미지 수신 완료")
+
+        # AI 추론
+        result = predict_image(image_bytes)
+        print("추론 결과: ", result)
+
+        # json 변환
+        result_json = json.dumps(result, ensure_ascii=False).encode()
+
+        # 결과 길이 전송
+        client_socket.sendall(
+            struct.pack(">I", len(result_json))
+        )
+
+        # 결과 데이터 전송
+        client_socket.sendall(result_json)
+        print("결과 전송 완료")
+    except Exception as e:
+        print("오류 발생: ", e)
+    finally:
+        # 연결 종료
+        client_socket.close()
+        print("클라이언트 연결 종료")
+
