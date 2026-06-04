@@ -104,53 +104,6 @@ def update_graph():
     fig.canvas.draw()
     fig.canvas.flush_events()
 
-# 최종 결과 시각화 함수
-def show_final_result():
-    print("\n최종 결과 그래프 생성\n")
-    plt.figure(figsize=(14, 7))
-
-    # Force 시계열
-    plt.plot(
-        all_index,
-        all_force,
-        linewidth = 2,
-        label = 'Force',
-    )
-
-    # threshold 표시
-    plt.axhline(
-        y = THRESHOLD,
-        color = 'orange',
-        linestyle = '--',
-        linewidth = 2,
-        label = f'Threshold={THRESHOLD}',
-    )
-
-    # 이상 데이터 추출
-    anomaly_x = []
-    anomaly_y = []
-    for idx, force, status in zip(all_index, all_force, all_status):
-        if status == 'ANOMALY':
-            anomaly_x.append(idx)
-            anomaly_y.append(force)
-
-    # 이상 데이터 표시 (그래프로 결과 뽑기)
-    plt.scatter(
-        anomaly_x,
-        anomaly_y,
-        color = 'red',
-        s = 100,
-        marker = 'o',
-        label = 'AI Anomaly',
-    )
-    plt.title("kafka + Isolation Forest Anomaly Detection")
-    plt.xlabel("Sample")
-    plt.ylabel("Force")
-    plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-
 # Ctrl+C 처리 함수
 def signal_handler(sig, frame):
     print("\n프로그램 종료")
