@@ -11,8 +11,8 @@ kafka topic으로 들어오는 센서 데이터를
 
 from kafka import KafkaConsumer
 import json
-import matplotlib
-matplotlib.use("TkAgg")
+# import matplotlib
+# matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt # 시각화 라이브러리
 import time
 from collections import deque # 데이터 저장
