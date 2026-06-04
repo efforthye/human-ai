@@ -5,6 +5,7 @@ consumer가 초당 약 10건 수신 => tps 출력
 
 순서: consumer 실행 --> producer 실행
 '''
+#=====================================================
 
 from kafka import KafkaProducer
 import json
