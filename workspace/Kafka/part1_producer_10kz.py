@@ -57,4 +57,4 @@ while True:
     print(f"전송 seq: {message['seq']}, force: {message['force']}")
 
     # 0.1초 마다 데이터 전송 (1초에 약 10개)
-    time.sleep(1)
+    time.sleep(0.1)
