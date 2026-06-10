@@ -24,7 +24,7 @@
     - pip list <--설치버전확인
 
 4. Jupyter notebook 설치
-    >> conda install jupyter notebook
+    >> conda install jupyter notebook 
 
 * 가상환경 conda 확인 및 삭제
        - conda info --envs /*아나콘다 환경 확인하기*/
